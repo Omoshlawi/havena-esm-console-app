@@ -3,7 +3,7 @@ import { AppService } from "../types";
 import useSWR from "swr";
 
 const useAppServices = () => {
-  const path = "/service-registry/services";
+  const path = "/registry/services";
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: AppService[] }>>(path);
   return {

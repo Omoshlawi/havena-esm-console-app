@@ -8,13 +8,13 @@ import {
   TableSkeleton,
   When,
 } from "@hive/esm-core-components";
-import { ActionIcon, Box, Button, Chip, Stack } from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react";
+import { ActionIcon, Badge, Box, Group, Stack } from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import AppServiceResourcesExpandedRow from "../components/AppServiceResourcesExpandedRow";
 import { useAppServices } from "../hooks";
 import { AppService } from "../types";
+import { formatDate } from "../utils/helpers";
 
 const AppServicesPage = () => {
   const { mutate, ...state } = useAppServices();
@@ -42,13 +42,6 @@ const AppServicesPage = () => {
                 <AppServiceResourcesExpandedRow service={row.original} />
               )}
               withColumnViewOptions
-              renderActions={() => (
-                <>
-                  <Button leftSection={<IconPlus size={16} />} variant="light">
-                    Add
-                  </Button>
-                </>
-              )}
             />
           );
         }}
@@ -123,12 +116,34 @@ const columns: ColumnDef<AppService>[] = [
     },
     enableSorting: false,
     enableHiding: false,
+    size: 0,
   },
-  { accessorKey: "name", header: "Name" },
   {
-    accessorKey: "port",
-    header({ column }) {
-      return <DataTableColumnHeader title="Service Port" column={column} />;
+    accessorKey: "name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+  },
+  {
+    accessorKey: "version",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Version" />
+    ),
+  },
+  {
+    accessorKey: "tags",
+    header: "Tags",
+    cell({ getValue }) {
+      const tags = getValue<string[]>();
+      return (
+        <Group gap={"xs"}>
+          {tags.map((tag, i) => (
+            <Badge key={i} size="xs" variant="light">
+              {tag}
+            </Badge>
+          ))}
+        </Group>
+      );
     },
   },
   {
@@ -137,8 +152,8 @@ const columns: ColumnDef<AppService>[] = [
       <DataTableColumnHeader column={column} title="Time Stamp" />
     ),
     cell({ row, getValue }) {
-      const timestamp = getValue<number>();
-      return <Chip>{new Date(timestamp).toDateString()}</Chip>;
+      const timestamp = parseInt(getValue<string>());
+      return formatDate(new Date(timestamp).toISOString());
     },
   },
 ];
