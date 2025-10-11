@@ -23,7 +23,7 @@ const AppServicesPage = () => {
     <Stack>
       <Box>
         <DashboardPageHeader
-          title="Service"
+          title="Services"
           subTitle={"Application service"}
           icon={"server2"}
         />
