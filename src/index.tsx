@@ -4,7 +4,18 @@ import {
   AdminHeaderLink,
   OrganizationContextHeaderLink,
 } from "./components/links";
-import { Appservices, OrganizationStaff, Resources } from "./pages";
+import {} from "zod/v4";
+import {
+  Amenities,
+  Appservices,
+  AttributeTypes,
+  Categories,
+  FinancingOptions,
+  OrganizationStaff,
+  OwnershipTypes,
+  RelationShipTypes,
+  Resources,
+} from "./pages";
 
 export function setup(app: PiletApi) {
   app.registerPage("/dashboard/staff", OrganizationStaff, {
@@ -57,5 +68,89 @@ export function setup(app: PiletApi) {
       type: "admin",
       order: 5,
     }
+  );
+
+  app.registerPage("/dasboard/amenities", Amenities, { layout: "dashboard" });
+  app.registerPage("/dasboard/attribute-types", AttributeTypes, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/categories", Categories, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/relationship-types", RelationShipTypes, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/ownership-types", OwnershipTypes, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/financing-options", FinancingOptions, {
+    layout: "dashboard",
+  });
+
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/amenities"
+        label="Amenities"
+        icon="tournament"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/attribute-types"
+        label="Attribute Types"
+        icon="tree"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/categories"
+        label="Categories"
+        icon="category"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/relationship-types"
+        label="Relationship types"
+        icon="sitemap"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/ownership-types"
+        label="Ownership types"
+        icon="userHexagon"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/financing-options"
+        label="Financing options"
+        icon="tax"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
   );
 }

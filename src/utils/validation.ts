@@ -1,36 +1,41 @@
 import { z } from "zod";
 
-export const OrganizationSchema = z.object({
-  name: z.string().min(1, "required"),
-  description: z.string().min(1, "required"),
+// IconSchema
+const IconSchema = z.object({
+  name: z.string().min(1, "Required"),
+  family: z.string().min(1, "Required"),
+});
+// Amenity
+export const AmenitySchema = z.object({
+  name: z.string().min(1, "Required"),
+  icon: IconSchema,
 });
 
-export const PrivilegeSchema = z.object({
-  name: z.string().min(1, "required"),
-  description: z.string().min(1, "required"),
-  resourceId: z.string().uuid("invalid resource"),
-  permitedResourceDataPoints: z.array(z.string().min(1, "required")),
-  operations: z.array(z.enum(["Create", "Read", "Update", "Delete"])),
+// Category
+export const CategorySchema = z.object({
+  name: z.string().min(1, "Required"),
+  icon: IconSchema,
 });
 
-export const ResourceSchema = z.object({
-  name: z.string().min(1, "required"),
-  description: z.string().min(1, "required"),
-  dataPoints: z.array(z.string().min(1, "required")),
+// RelationshipType
+export const RelationshipTypeSchema = z.object({
+  description: z.string().min(1, "Required").optional(),
+  aIsToB: z.string().min(1, "Required"),
+  bIsToA: z.string().min(1, "Required"),
 });
 
-export const RolePrivilegeSchema = z.object({
-  roleId: z.string().uuid("invalid role"),
-  privilegeId: z.string().uuid("invalid privilege"),
+// Attribute types
+export const AttributeTypeSchema = z.object({
+  name: z.string().min(1, "Required"),
+  icon: IconSchema,
 });
 
-export const RoleSchema = z.object({
-  name: z.string().min(1, "required"),
-  description: z.string().min(1, "required"),
-  privileges: z.array(z.string().uuid()),
+export const OwnershipTypeSchema = z.object({
+  name: z.string().nonempty("required"),
+  description: z.string().optional(),
 });
 
-export const OrganizationMembershipSchema = z.object({
-  memberUserId: z.string().uuid("invalid user"),
-  roleIds: z.array(z.string().uuid("invalid role")),
+export const FinancingOptionSchema = z.object({
+  name: z.string().nonempty("required"),
+  description: z.string().optional(),
 });
