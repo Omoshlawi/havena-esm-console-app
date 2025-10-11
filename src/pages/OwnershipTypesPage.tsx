@@ -121,18 +121,18 @@ const columns: ColumnDef<OwnershipType>[] = [
     accessorKey: "description",
     header: "description",
   },
-
   {
     accessorKey: "voided",
     header({ column }) {
-      return <DataTableColumnHeader column={column} title="Status" />;
+      return <DataTableColumnHeader column={column} title="Voided" />;
     },
     cell({ getValue }) {
-      const status = !getValue<boolean>();
+      const voided = getValue<boolean>();
       return (
-        <Badge color={status ? "teal" : "red"} variant={"outline"}>
-          {status ? "Active" : "Inactive"}
-        </Badge>
+        <TablerIcon
+          name={voided ? "circleCheck" : "circleX"}
+          color={voided ? "teal" : "red"}
+        />
       );
     },
   },

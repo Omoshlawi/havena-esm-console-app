@@ -1,26 +1,19 @@
 import type { PiletApi } from "@hive/esm-shell-app";
 import * as React from "react";
-import {
-  AdminHeaderLink,
-  OrganizationContextHeaderLink,
-} from "./components/links";
 import {} from "zod/v4";
+import { AdminHeaderLink } from "./components/links";
 import {
   Amenities,
   Appservices,
   AttributeTypes,
   Categories,
   FinancingOptions,
-  OrganizationStaff,
   OwnershipTypes,
   RelationShipTypes,
   Resources,
 } from "./pages";
 
 export function setup(app: PiletApi) {
-  app.registerPage("/dashboard/staff", OrganizationStaff, {
-    layout: "dashboard",
-  });
   app.registerPage("/dashboard/resources", Resources, {
     layout: "dashboard",
   });
@@ -53,20 +46,6 @@ export function setup(app: PiletApi) {
     {
       type: "admin",
       order: 1,
-    }
-  );
-  app.registerMenu(
-    ({ onClose }: any) => (
-      <OrganizationContextHeaderLink
-        to="/dashboard/staff"
-        label="Staffs"
-        onClose={onClose ?? (() => {})}
-        icon="usersGroup"
-      />
-    ),
-    {
-      type: "admin",
-      order: 5,
     }
   );
 

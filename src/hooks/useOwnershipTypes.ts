@@ -1,9 +1,14 @@
-import { apiFetch, APIFetchResponse, mutate } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  constructUrl,
+  mutate,
+} from "@hive/esm-core-api";
 import useSWR from "swr";
 import { OwnershipType, OwnershipTypeFormData } from "../types";
 
 export const useOwnershipTypes = () => {
-  const url = "/ownership-types";
+  const url = constructUrl("/ownership-types", { includeVoided: true });
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: Array<OwnershipType> }>>(url);
 

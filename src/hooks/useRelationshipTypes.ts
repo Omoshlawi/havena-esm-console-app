@@ -1,4 +1,9 @@
-import { apiFetch, APIFetchResponse } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  constructUrl,
+  mutate,
+} from "@hive/esm-core-api";
 import { RelationshipType, RelationshipTypeFormData } from "../types";
 import useSWR from "swr";
 
@@ -22,12 +27,10 @@ const updateRelationshipType = async (
   return res.data;
 };
 
-const deleteRelationshipType = async (
-  id: string,
-  method: "DELETE" | "PURGE" = "DELETE"
-) => {
+const deleteRelationshipType = async (id: string, purge: boolean = false) => {
   const res = await apiFetch<RelationshipType>(`/relationship-types/${id}`, {
-    method: method,
+    method: "DELETE",
+    params: { purge },
   });
   return res.data;
 };
@@ -37,11 +40,12 @@ export const useRelationshipTypeApi = () => {
     addRelationshipType,
     updateRelationshipType,
     deleteRelationshipType,
+    mutate: () => mutate("/relationship-types"),
   };
 };
 
 export const useRelationshipTypes = () => {
-  const path = "/relationship-types";
+  const path = constructUrl("/relationship-types", { includeVoided: true });
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: RelationshipType[] }>>(path);
   return {

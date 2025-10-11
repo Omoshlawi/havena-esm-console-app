@@ -1,21 +1,34 @@
 import {
   DashboardPageHeader,
+  DataTableColumnHeader,
   launchWorkspace,
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
-import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
+import {
+  ActionIcon,
+  Box,
+  Menu,
+  Paper,
+  Stack,
+  useComputedColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import AmenityForm from "../forms/AmenityForm";
-import { useAmenities } from "../hooks";
+import { useAmenities, useAmenitiesApi } from "../hooks";
 import { Amenity } from "../types";
+import { confirmDelete } from "../utils/utils";
 type AmenitiespageProps = {};
 
 const Amenitiespage: React.FC<AmenitiespageProps> = ({}) => {
+  const colorScheme = useComputedColorScheme();
+  const theme = useMantineTheme();
+  const bgColor =
+    colorScheme === "light" ? theme.colors.gray[0] : theme.colors.dark[6];
   const amenitiesAsync = useAmenities();
-
+  const { deleteAmenity, mutate } = useAmenitiesApi();
   const handleAddOrupdate = (amenity?: Amenity) => {
     const dispose = launchWorkspace(
       <AmenityForm
@@ -28,58 +41,45 @@ const Amenitiespage: React.FC<AmenitiespageProps> = ({}) => {
       }
     );
   };
-  const handleDelete = (amenity: Amenity) => {
-    openConfirmModal({
-      title: "Delete Amenity",
-      children: (
-        <Text>
-          Are you sure you want to delete this role.This action is destructive
-          and will delete all data related to role
-        </Text>
-      ),
-      labels: { confirm: "Delete amenity", cancel: "No don't delete it" },
-      confirmProps: { color: "red" },
-      centered: true,
-      onConfirm() {
-        // TODO Implement delete
-      },
-    });
-  };
 
   const actions: ColumnDef<Amenity> = {
     id: "actions",
-    header: "Actions",
     cell({ row }) {
       const amenity = row.original;
       return (
-        <Group>
-          <Group>
-            <ActionIcon
-              variant="outline"
-              aria-label="Settings"
-              color="green"
+        <Menu shadow="md" width={200} position="bottom-end">
+          <Menu.Target>
+            <ActionIcon variant="subtle" aria-label="actions">
+              <TablerIcon
+                name="dots"
+                style={{ width: "70%", height: "70%" }}
+                stroke={1.5}
+              />
+            </ActionIcon>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Label>Actions</Menu.Label>
+            <Menu.Divider />
+            <Menu.Item
+              leftSection={<TablerIcon name="edit" size={14} />}
               onClick={() => handleAddOrupdate(amenity)}
             >
-              <TablerIcon
-                name="edit"
-                style={{ width: "70%", height: "70%" }}
-                stroke={1.5}
-              />
-            </ActionIcon>
-            <ActionIcon
-              variant="outline"
-              aria-label="Settings"
-              color="red"
-              onClick={() => handleDelete(amenity)}
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<TablerIcon name="trash" size={14} />}
+              onClick={() =>
+                confirmDelete("amenity", async () => {
+                  await deleteAmenity(amenity.id);
+                  mutate();
+                })
+              }
             >
-              <TablerIcon
-                name="trash"
-                style={{ width: "70%", height: "70%" }}
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Group>
-        </Group>
+              Delete
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       );
     },
   };
@@ -92,13 +92,16 @@ const Amenitiespage: React.FC<AmenitiespageProps> = ({}) => {
           icon={"tournament"}
         />
       </Box>
-      <StateFullDataTable
-        {...amenitiesAsync}
-        data={amenitiesAsync.amenities}
-        columns={[...columns, actions]}
-        onAdd={() => handleAddOrupdate()}
-        withColumnViewOptions
-      />
+      <Paper bg={bgColor} p={"md"}>
+        <StateFullDataTable
+          {...amenitiesAsync}
+          data={amenitiesAsync.amenities}
+          columns={[...columns, actions]}
+          onAdd={() => handleAddOrupdate()}
+          withColumnViewOptions
+          title="Amenities"
+        />
+      </Paper>
     </Stack>
   );
 };
@@ -118,6 +121,21 @@ const columns: ColumnDef<Amenity>[] = [
   {
     accessorKey: "name",
     header: "Amenity",
+  },
+  {
+    accessorKey: "voided",
+    header({ column }) {
+      return <DataTableColumnHeader column={column} title="Voided" />;
+    },
+    cell({ getValue }) {
+      const voided = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={voided ? "circleCheck" : "circleX"}
+          color={voided ? "teal" : "red"}
+        />
+      );
+    },
   },
   {
     accessorKey: "createdAt",

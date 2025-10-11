@@ -1,4 +1,9 @@
-import { apiFetch, APIFetchResponse } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  constructUrl,
+  mutate,
+} from "@hive/esm-core-api";
 import { Category, CategoryFormData } from "../types";
 import useSWR from "swr";
 
@@ -19,12 +24,10 @@ const updateCategory = async (
   return res.data;
 };
 
-const deleteCategory = async (
-  id: string,
-  method: "DELETE" | "PURGE" = "DELETE"
-) => {
+const deleteCategory = async (id: string, purge: boolean = false) => {
   const res = await apiFetch<Category>(`/categories/${id}`, {
-    method: method,
+    method: "DELETE",
+    params: { purge: `${purge}` },
   });
   return res.data;
 };
@@ -34,11 +37,12 @@ export const useCategoryApi = () => {
     addCategory,
     updateCategory,
     deleteCategory,
+    mutate: () => mutate(`/categories`),
   };
 };
 
 export const useCategories = () => {
-  const path = "/categories";
+  const path = constructUrl("/categories", { includeVoided: true });
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: Category[] }>>(path);
   return {

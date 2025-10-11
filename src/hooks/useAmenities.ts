@@ -1,4 +1,9 @@
-import { apiFetch, APIFetchResponse } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  constructUrl,
+  mutate,
+} from "@hive/esm-core-api";
 import { Amenity, AmenityFormData } from "../types";
 import useSWR from "swr";
 
@@ -19,12 +24,10 @@ const updateAmenity = async (
   return res.data;
 };
 
-const deleteAmenity = async (
-  amenityId: string,
-  method: "DELETE" | "PURGE" = "DELETE"
-) => {
+const deleteAmenity = async (amenityId: string, purge: boolean = false) => {
   const res = await apiFetch<Amenity>(`/amenities/${amenityId}`, {
-    method: method,
+    method: "DELETE",
+    params: { purge },
   });
   return res.data;
 };
@@ -34,11 +37,12 @@ export const useAmenitiesApi = () => {
     addAmenity,
     updateAmenity,
     deleteAmenity,
+    mutate: () => mutate("/amenities"),
   };
 };
 
 export const useAmenities = () => {
-  const path = "/amenities";
+  const path = constructUrl("/amenities", { includeVoided: true });
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: Amenity[] }>>(path);
   return {

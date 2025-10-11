@@ -1,4 +1,9 @@
-import { apiFetch, APIFetchResponse } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  constructUrl,
+  mutate,
+} from "@hive/esm-core-api";
 import { AttributeType, AttributeTypeFormData } from "../types";
 import useSWR from "swr";
 
@@ -22,12 +27,10 @@ const updateAttributeType = async (
   return res.data;
 };
 
-const deleteAttributeType = async (
-  id: string,
-  method: "DELETE" | "PURGE" = "DELETE"
-) => {
+const deleteAttributeType = async (id: string, purge: boolean = false) => {
   const res = await apiFetch<AttributeType>(`/attribute-types/${id}`, {
-    method: method,
+    method: "DELETE",
+    params: { purge },
   });
   return res.data;
 };
@@ -37,11 +40,12 @@ export const useAttributeTypeApi = () => {
     addAttributeType,
     updateAttributeType,
     deleteAttributeType,
+    mutate: () => mutate("/attribute-types"),
   };
 };
 
 export const useAttributeTypes = () => {
-  const path = "/attribute-types";
+  const path = constructUrl("/attribute-types", { includeVoided: true });
   const { data, error, isLoading, mutate } =
     useSWR<APIFetchResponse<{ results: AttributeType[] }>>(path);
   return {

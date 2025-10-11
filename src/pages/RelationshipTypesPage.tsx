@@ -1,22 +1,36 @@
 import {
   DashboardPageHeader,
+  DataTableColumnHeader,
   launchWorkspace,
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
-import { PiletApi } from "@hive/esm-shell-app";
-import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
+import {
+  ActionIcon,
+  Box,
+  Menu,
+  Paper,
+  Stack,
+  useComputedColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
+import { mutate } from "swr";
 import RelationshipTypeForm from "../forms/RelationshipTypeForm";
-import { useRelationshipTypes } from "../hooks";
+import { useRelationshipTypeApi, useRelationshipTypes } from "../hooks";
 import { RelationshipType } from "../types";
+import { confirmDelete } from "../utils/utils";
 
 type RelationshipTypesPageProps = {};
 
 const RelationshipTypesPage: React.FC<RelationshipTypesPageProps> = ({}) => {
+  const colorScheme = useComputedColorScheme();
+  const theme = useMantineTheme();
+  const bgColor =
+    colorScheme === "light" ? theme.colors.gray[0] : theme.colors.dark[6];
   const relationshipTypesAsync = useRelationshipTypes();
+  const { deleteRelationshipType, mutate } = useRelationshipTypeApi();
   const title = "Relationship types";
 
   const handleAddOrupdate = (relationshipType?: RelationshipType) => {
@@ -33,61 +47,45 @@ const RelationshipTypesPage: React.FC<RelationshipTypesPageProps> = ({}) => {
       }
     );
   };
-  const handleDelete = (relationshipType: RelationshipType) => {
-    openConfirmModal({
-      title: "Delete Relationship type",
-      children: (
-        <Text>
-          Are you sure you want to delete this role.This action is destructive
-          and will delete all data related to role
-        </Text>
-      ),
-      labels: {
-        confirm: "Delete relationship type",
-        cancel: "No don't delete it",
-      },
-      confirmProps: { color: "red" },
-      centered: true,
-      onConfirm() {
-        // TODO Implement delete
-      },
-    });
-  };
 
   const actions: ColumnDef<RelationshipType> = {
     id: "actions",
-    header: "Actions",
     cell({ row }) {
       const relationshipType = row.original;
       return (
-        <Group>
-          <Group>
-            <ActionIcon
-              variant="outline"
-              aria-label="Settings"
-              color="green"
+        <Menu shadow="md" width={200} position="bottom-end">
+          <Menu.Target>
+            <ActionIcon variant="subtle" aria-label="actions">
+              <TablerIcon
+                name="dots"
+                style={{ width: "70%", height: "70%" }}
+                stroke={1.5}
+              />
+            </ActionIcon>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Label>Actions</Menu.Label>
+            <Menu.Divider />
+            <Menu.Item
+              leftSection={<TablerIcon name="edit" size={14} />}
               onClick={() => handleAddOrupdate(relationshipType)}
             >
-              <TablerIcon
-                name="edit"
-                style={{ width: "70%", height: "70%" }}
-                stroke={1.5}
-              />
-            </ActionIcon>
-            <ActionIcon
-              variant="outline"
-              aria-label="Settings"
-              color="red"
-              onClick={() => handleDelete(relationshipType)}
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<TablerIcon name="trash" size={14} />}
+              onClick={() =>
+                confirmDelete("relationship type", async () => {
+                  await deleteRelationshipType(relationshipType.id, false);
+                  mutate();
+                })
+              }
             >
-              <TablerIcon
-                name="trash"
-                style={{ width: "70%", height: "70%" }}
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Group>
-        </Group>
+              Delete
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       );
     },
   };
@@ -100,14 +98,16 @@ const RelationshipTypesPage: React.FC<RelationshipTypesPageProps> = ({}) => {
           icon={"sitemap"}
         />
       </Box>
-      <StateFullDataTable
-        {...relationshipTypesAsync}
-        data={relationshipTypesAsync.relationshipTypes}
-        columns={[...columns, actions]}
-        onAdd={() => handleAddOrupdate()}
-        title={title}
-        withColumnViewOptions
-      />
+      <Paper bg={bgColor} p={"md"}>
+        <StateFullDataTable
+          {...relationshipTypesAsync}
+          data={relationshipTypesAsync.relationshipTypes}
+          columns={[...columns, actions]}
+          onAdd={() => handleAddOrupdate()}
+          title={title}
+          withColumnViewOptions
+        />
+      </Paper>
     </Stack>
   );
 };
@@ -125,6 +125,21 @@ const columns: ColumnDef<RelationshipType>[] = [
   {
     accessorKey: "description",
     header: "Description",
+  },
+  {
+    accessorKey: "voided",
+    header({ column }) {
+      return <DataTableColumnHeader column={column} title="Voided" />;
+    },
+    cell({ getValue }) {
+      const voided = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={voided ? "circleCheck" : "circleX"}
+          color={voided ? "teal" : "red"}
+        />
+      );
+    },
   },
   {
     accessorKey: "createdAt",
