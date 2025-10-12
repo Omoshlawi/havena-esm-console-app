@@ -1,17 +1,23 @@
-import { APIFetchResponse } from "@hive/esm-core-api";
-import { Resource } from "../types";
-import useSWR from "swr";
+import { APIFetchResponse, Auth } from "@hive/esm-core-api";
+import { useMemo } from "react";
+import { toTitleCase } from "../utils/helpers";
 
 const useResources = () => {
-  const path = "/resources";
-  const { data, error, isLoading, mutate } =
-    useSWR<APIFetchResponse<{ results: Resource[] }>>(path);
-  return {
-    resources: data?.data?.results ?? [],
-    isLoading,
-    error,
-    mutate,
+  const statements = {
+    ...Auth.pluginOptions.admin.ac.statements,
+    ...Auth.pluginOptions.organization.ac.statements,
   };
+  const resources = useMemo<
+    Array<{ resource: string; actions: Array<string> }>
+  >(
+    () =>
+      Object.keys(statements).map((resource) => ({
+        resource: toTitleCase(resource),
+        actions: statements[resource]?.map(toTitleCase),
+      })),
+    [statements]
+  );
+  return resources;
 };
 
 export default useResources;

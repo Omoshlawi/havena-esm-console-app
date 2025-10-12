@@ -27,7 +27,7 @@ export function setup(app: PiletApi) {
         to="/dashboard/resources"
         label="Resources"
         onClose={onClose ?? (() => {})}
-        icon="database"
+        icon="shieldCheck"
       />
     ),
     {
