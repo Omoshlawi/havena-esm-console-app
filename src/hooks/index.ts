@@ -8,3 +8,4 @@ export * from "./useCategories";
 export * from "./useRelationshipTypes";
 export * from "./useFinancingOptions";
 export * from "./useOwnershipTypes";
+export * from "./useFileUsage";

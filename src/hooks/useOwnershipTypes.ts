@@ -45,11 +45,19 @@ const deleteOwnershipType = async (
   return res.data;
 };
 
+const restoreOwnershipTypes = async (id: string) => {
+  const res = await apiFetch<OwnershipType>(`/ownership-types/${id}/restore`, {
+    method: "GET",
+  });
+  return res.data;
+};
+
 export const useOwnershipTypesApi = () => {
   return {
     addOwnershipType,
     updateownershipType,
     deleteOwnershipType,
     mutateOwnershipType: () => mutate("/ownership-types"),
+    restoreOwnershipTypes,
   };
 };

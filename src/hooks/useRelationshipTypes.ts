@@ -35,12 +35,23 @@ const deleteRelationshipType = async (id: string, purge: boolean = false) => {
   return res.data;
 };
 
+const restoreRelationshipType = async (id: string) => {
+  const res = await apiFetch<RelationshipType>(
+    `/relationship-types/${id}/restore`,
+    {
+      method: "GET",
+    }
+  );
+  return res.data;
+};
+
 export const useRelationshipTypeApi = () => {
   return {
     addRelationshipType,
     updateRelationshipType,
     deleteRelationshipType,
     mutate: () => mutate("/relationship-types"),
+    restoreRelationshipType,
   };
 };
 

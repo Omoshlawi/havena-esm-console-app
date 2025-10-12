@@ -12,6 +12,7 @@ import FinancingOptionsPage from "./FinancingOptionsPage";
 import OwnershipTypesPage from "./OwnershipTypesPage";
 import ExitOrganizationContext from "../components/ExitOrganizationContext";
 import React from "react";
+import FileUsageScopePage from "./FileUsageScopePage";
 
 const unauthenticatedAction: any = { type: "redirect", path: "/login" };
 const hasOrganizationAction: any = {
@@ -73,6 +74,15 @@ export const FinancingOptions = withRequireAuth(
 );
 export const OwnershipTypes = withRequireAuth(
   withNoOrganizationContextRequired(OwnershipTypesPage, {
+    hasOrganizationAction,
+  }),
+  {
+    unauthenticatedAction,
+  }
+);
+
+export const FileUsageRules = withRequireAuth(
+  withNoOrganizationContextRequired(FileUsageScopePage, {
     hasOrganizationAction,
   }),
   {

@@ -45,11 +45,22 @@ const deleteFinancingOption = async (
   return res.data;
 };
 
+const restoreFinancingOption = async (id: string) => {
+  const res = await apiFetch<FinancingOption>(
+    `/financing-options/${id}/restore`,
+    {
+      method: "GET",
+    }
+  );
+  return res.data;
+};
+
 export const useFinancingOptionsApi = () => {
   return {
     addFinancingOption,
     updateFinancingOption,
     deleteFinancingOption,
     mutateFinancingOption: () => mutate("/financing-options"),
+    restoreFinancingOption,
   };
 };

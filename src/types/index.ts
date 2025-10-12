@@ -4,6 +4,8 @@ import {
   AmenitySchema,
   AttributeTypeSchema,
   CategorySchema,
+  FileUsageRuleSchema,
+  FileUsageScopeSchema,
   FinancingOptionSchema,
   OwnershipTypeSchema,
   RelationshipTypeSchema,
@@ -86,6 +88,23 @@ export interface FinancingOption {
   createdAt: string;
   updatedAt: string;
 }
+export interface FileUsageScope {
+  id: string;
+  modelName: string;
+  purpose: string;
+  description: string;
+  voided: boolean;
+  createdAt: string;
+}
+
+export interface FileUsageRule {
+  id: string
+  scopeId: string
+  maxFiles: number
+  voided: boolean
+  createdAt: string
+}
+
 
 export type AmenityFormData = z.infer<typeof AmenitySchema>;
 export type CategoryFormData = z.infer<typeof CategorySchema>;
@@ -93,3 +112,5 @@ export type RelationshipTypeFormData = z.infer<typeof RelationshipTypeSchema>;
 export type AttributeTypeFormData = z.infer<typeof AttributeTypeSchema>;
 export type OwnershipTypeFormData = z.infer<typeof OwnershipTypeSchema>;
 export type FinancingOptionsFormData = z.infer<typeof FinancingOptionSchema>;
+export type FileUsageScopeFormData = z.infer<typeof FileUsageScopeSchema>;
+export type FileUsageRuleFormData = z.infer<typeof FileUsageRuleSchema>;

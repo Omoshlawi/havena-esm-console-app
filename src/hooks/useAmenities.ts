@@ -32,12 +32,20 @@ const deleteAmenity = async (amenityId: string, purge: boolean = false) => {
   return res.data;
 };
 
+const restoreAmenity = async (amenityId: string) => {
+  const res = await apiFetch<Amenity>(`/amenities/${amenityId}/restore`, {
+    method: "GET",
+  });
+  return res.data;
+};
+
 export const useAmenitiesApi = () => {
   return {
     addAmenity,
     updateAmenity,
     deleteAmenity,
     mutate: () => mutate("/amenities"),
+    restoreAmenity,
   };
 };
 

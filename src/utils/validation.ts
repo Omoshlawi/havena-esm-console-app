@@ -39,3 +39,14 @@ export const FinancingOptionSchema = z.object({
   name: z.string().nonempty("required"),
   description: z.string().optional(),
 });
+
+export const FileUsageScopeSchema = z.object({
+  modelName: z.string().nonempty(),
+  purpose: z.string().nonempty(),
+  description: z.string().optional(),
+});
+
+export const FileUsageRuleSchema = z.object({
+  scopeId: z.string().uuid(),
+  maxFiles: z.coerce.number().positive(),
+});

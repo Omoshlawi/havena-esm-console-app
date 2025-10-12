@@ -32,12 +32,20 @@ const deleteCategory = async (id: string, purge: boolean = false) => {
   return res.data;
 };
 
+const restoreCategory = async (id: string) => {
+  const res = await apiFetch<Category>(`/categories/${id}/restore`, {
+    method: "GET",
+  });
+  return res.data;
+};
+
 export const useCategoryApi = () => {
   return {
     addCategory,
     updateCategory,
     deleteCategory,
     mutate: () => mutate(`/categories`),
+    restoreCategory,
   };
 };
 

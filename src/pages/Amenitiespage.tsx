@@ -28,7 +28,7 @@ const Amenitiespage: React.FC<AmenitiespageProps> = ({}) => {
   const bgColor =
     colorScheme === "light" ? theme.colors.gray[0] : theme.colors.dark[6];
   const amenitiesAsync = useAmenities();
-  const { deleteAmenity, mutate } = useAmenitiesApi();
+  const { deleteAmenity, mutate, restoreAmenity } = useAmenitiesApi();
   const handleAddOrupdate = (amenity?: Amenity) => {
     const dispose = launchWorkspace(
       <AmenityForm
@@ -61,23 +61,34 @@ const Amenitiespage: React.FC<AmenitiespageProps> = ({}) => {
           <Menu.Dropdown>
             <Menu.Label>Actions</Menu.Label>
             <Menu.Divider />
-            <Menu.Item
-              leftSection={<TablerIcon name="edit" size={14} />}
-              onClick={() => handleAddOrupdate(amenity)}
-            >
-              Edit
-            </Menu.Item>
-            <Menu.Item
-              leftSection={<TablerIcon name="trash" size={14} />}
-              onClick={() =>
-                confirmDelete("amenity", async () => {
-                  await deleteAmenity(amenity.id);
-                  mutate();
-                })
-              }
-            >
-              Delete
-            </Menu.Item>
+            {amenity.voided ? (
+              <Menu.Item
+                leftSection={<TablerIcon name="edit" size={14} />}
+                onClick={() => restoreAmenity(amenity.id)}
+              >
+                Restore
+              </Menu.Item>
+            ) : (
+              <>
+                <Menu.Item
+                  leftSection={<TablerIcon name="edit" size={14} />}
+                  onClick={() => handleAddOrupdate(amenity)}
+                >
+                  Edit
+                </Menu.Item>
+                <Menu.Item
+                  leftSection={<TablerIcon name="trash" size={14} />}
+                  onClick={() =>
+                    confirmDelete("amenity", async () => {
+                      await deleteAmenity(amenity.id);
+                      mutate();
+                    })
+                  }
+                >
+                  Delete
+                </Menu.Item>
+              </>
+            )}
           </Menu.Dropdown>
         </Menu>
       );

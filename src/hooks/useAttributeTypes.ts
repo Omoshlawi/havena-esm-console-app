@@ -35,12 +35,20 @@ const deleteAttributeType = async (id: string, purge: boolean = false) => {
   return res.data;
 };
 
+const restoreAttributeType = async (id: string) => {
+  const res = await apiFetch<AttributeType>(`/attribute-types/${id}/restore`, {
+    method: "GET",
+  });
+  return res.data;
+};
+
 export const useAttributeTypeApi = () => {
   return {
     addAttributeType,
     updateAttributeType,
     deleteAttributeType,
     mutate: () => mutate("/attribute-types"),
+    restoreAttributeType,
   };
 };
 

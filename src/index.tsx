@@ -7,6 +7,7 @@ import {
   Appservices,
   AttributeTypes,
   Categories,
+  FileUsageRules,
   FinancingOptions,
   OwnershipTypes,
   RelationShipTypes,
@@ -63,6 +64,12 @@ export function setup(app: PiletApi) {
     layout: "dashboard",
   });
   app.registerPage("/dasboard/financing-options", FinancingOptions, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/financing-options", FinancingOptions, {
+    layout: "dashboard",
+  });
+  app.registerPage("/dasboard/files/usage-rules", FileUsageRules, {
     layout: "dashboard",
   });
 
@@ -127,6 +134,17 @@ export function setup(app: PiletApi) {
         to="/dasboard/financing-options"
         label="Financing options"
         icon="tax"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <AdminHeaderLink
+        to="/dasboard/files/usage-rules"
+        label="File usage rules"
+        icon="swipe"
         onClose={onClose ?? (() => {})}
       />
     ),
