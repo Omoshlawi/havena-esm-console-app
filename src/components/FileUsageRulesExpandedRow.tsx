@@ -3,7 +3,7 @@ import {
   StateFullDataTable,
   DataTableColumnHeader,
   launchWorkspace,
-} from "@hive/esm-core-components";
+} from "@havena/esm-core-components";
 import {
   useComputedColorScheme,
   useMantineTheme,

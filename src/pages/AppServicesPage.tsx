@@ -7,7 +7,7 @@ import {
   TablerIcon,
   TableSkeleton,
   When,
-} from "@hive/esm-core-components";
+} from "@havena/esm-core-components";
 import { ActionIcon, Badge, Box, Group, Stack } from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";

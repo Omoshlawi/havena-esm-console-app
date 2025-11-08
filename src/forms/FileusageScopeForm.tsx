@@ -5,7 +5,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FileUsageScopeSchema } from "../utils/validation";
 import { showNotification } from "@mantine/notifications";
-import { handleApiErrors } from "@hive/esm-core-api";
+import { handleApiErrors } from "@havena/esm-core-api";
 import { Stack, TextInput, Group, Button, Textarea } from "@mantine/core";
 type Props = {
   scope?: FileUsageScope;

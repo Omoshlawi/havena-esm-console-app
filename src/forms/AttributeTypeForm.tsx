@@ -5,9 +5,9 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AttributeTypeSchema } from "../utils/validation";
 import { showNotification } from "@mantine/notifications";
-import { handleApiErrors, mutate } from "@hive/esm-core-api";
+import { handleApiErrors, mutate } from "@havena/esm-core-api";
 import { Button, Group, Stack, TextInput } from "@mantine/core";
-import { TablerIcon, TablerIconPicker } from "@hive/esm-core-components";
+import { TablerIcon, TablerIconPicker } from "@havena/esm-core-components";
 
 type AttributeTypeFormProps = {
   attributeType?: AttributeType;

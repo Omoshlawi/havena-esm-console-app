@@ -1,4 +1,4 @@
-import { APIFetchResponse, Auth } from "@hive/esm-core-api";
+import { APIFetchResponse, Auth } from "@havena/esm-core-api";
 import { useMemo } from "react";
 import { toTitleCase } from "../utils/helpers";
 

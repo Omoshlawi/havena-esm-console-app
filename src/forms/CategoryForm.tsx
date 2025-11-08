@@ -2,11 +2,11 @@ import React from "react";
 import { Category, CategoryFormData } from "../types";
 import { useCategoryApi } from "../hooks";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { handleApiErrors, mutate } from "@hive/esm-core-api";
+import { handleApiErrors, mutate } from "@havena/esm-core-api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CategorySchema } from "../utils/validation";
 import { showNotification } from "@mantine/notifications";
-import { TablerIconPicker, TablerIcon } from "@hive/esm-core-components";
+import { TablerIconPicker, TablerIcon } from "@havena/esm-core-components";
 import { Stack, TextInput, Group, Button } from "@mantine/core";
 
 type CategoryFormProps = {

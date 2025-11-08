@@ -3,7 +3,7 @@ import {
   APIFetchResponse,
   constructUrl,
   mutate,
-} from "@hive/esm-core-api";
+} from "@havena/esm-core-api";
 import useSWR from "swr";
 import { FinancingOption, FinancingOptionsFormData } from "../types";
 

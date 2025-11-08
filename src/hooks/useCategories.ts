@@ -3,7 +3,7 @@ import {
   APIFetchResponse,
   constructUrl,
   mutate,
-} from "@hive/esm-core-api";
+} from "@havena/esm-core-api";
 import { Category, CategoryFormData } from "../types";
 import useSWR from "swr";
 

@@ -4,7 +4,7 @@ import {
   launchWorkspace,
   StateFullDataTable,
   TablerIcon,
-} from "@hive/esm-core-components";
+} from "@havena/esm-core-components";
 import { ActionIcon, Badge, Box, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";

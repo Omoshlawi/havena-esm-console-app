@@ -1,4 +1,4 @@
-import type { PiletApi } from "@hive/esm-shell-app";
+import type { PiletApi } from "@havena/esm-shell-app";
 import * as React from "react";
 import {} from "zod/v4";
 import { AdminHeaderLink } from "./components/links";

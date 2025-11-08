@@ -3,7 +3,7 @@
   "schemaVersion": "v2",
   "importmapVersions": "match-major",
   "piralInstances": {
-    "@hive/esm-shell-app": {
+    "@havena/esm-shell-app": {
       "selected": true
     }
   }

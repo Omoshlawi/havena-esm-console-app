@@ -1,4 +1,4 @@
-import { DashboardPageHeader, TablerIcon } from "@hive/esm-core-components";
+import { DashboardPageHeader, TablerIcon } from "@havena/esm-core-components";
 import {
   Box,
   Card,

@@ -1,7 +1,7 @@
 import {
   DataTableColumnHeader,
   StateFullDataTable,
-} from "@hive/esm-core-components";
+} from "@havena/esm-core-components";
 import { ColumnDef } from "@tanstack/react-table";
 import React, { FC } from "react";
 import { AppService, Endpoint } from "../types";

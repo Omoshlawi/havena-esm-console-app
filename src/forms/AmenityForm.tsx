@@ -1,5 +1,5 @@
-import { handleApiErrors, mutate } from "@hive/esm-core-api";
-import { TablerIcon, TablerIconPicker } from "@hive/esm-core-components";
+import { handleApiErrors, mutate } from "@havena/esm-core-api";
+import { TablerIcon, TablerIconPicker } from "@havena/esm-core-components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Group, Stack, TextInput } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";

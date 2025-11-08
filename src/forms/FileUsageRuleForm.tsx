@@ -5,7 +5,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FileUsageRuleSchema } from "../utils/validation";
 import { showNotification } from "@mantine/notifications";
-import { handleApiErrors } from "@hive/esm-core-api";
+import { handleApiErrors } from "@havena/esm-core-api";
 import { Stack, TextInput, Group, Button, NumberInput } from "@mantine/core";
 
 type Props = {

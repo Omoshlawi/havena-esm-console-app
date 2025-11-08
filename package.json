@@ -1,5 +1,5 @@
 {
-  "name": "@hive/esm-console-app",
+  "name": "@havena/esm-console-app",
   "version": "1.0.0",
   "description": "",
   "keywords": [
@@ -7,13 +7,15 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@hive/esm-shell-app": "../hive-esm-core/packages/esm-shell-app/dist/emulator/hive-esm-shell-app-1.0.0.tgz",
-    "@hive/esm-core-components": "../hive-esm-core/packages/esm-core-components/hive-esm-core-components-v1.0.0.tgz",
-    "@hive/esm-core-api": "../hive-esm-core/packages/esm-core-api/hive-esm-core-api-v1.0.0.tgz",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "@types/node": "latest",
-    "typescript": "latest",
+    "@havena/esm-shell-app": "../havena-esm-core/packages/esm-shell-app/dist/emulator/havena-esm-shell-app-1.0.3.tgz",
+    "@havena/esm-core-components": "../havena-esm-core/packages/esm-core-components/havena-esm-core-components-v1.0.3.tgz",
+    "@havena/esm-core-api": "../havena-esm-core/packages/esm-core-api/havena-esm-core-api-v1.0.3.tgz",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/node": "^24.10.0",
+    "@types/react-router": "^5.1.20",
+    "@types/react-router-dom": "^5.3.3",
+    "typescript": "^5.8.3",
     "@mantine/core": "8.3.4",
     "@mantine/hooks": "8.3.4",
     "@mantine/spotlight": "8.3.4",
@@ -34,8 +36,9 @@
     "react-dom": "18.3.1",
     "react-router": "5.3.4",
     "react-router-dom": "5.3.4",
-    "piral-cli": "1.9.0",
-    "piral-cli-esbuild": "latest"
+    "lerna": "^8.2.2",
+    "piral-cli": "1.9.1",
+    "piral-cli-esbuild": "^1.3.0"
   },
   "peerDependencies": {},
   "scripts": {
@@ -52,7 +55,7 @@
   ],
   "importmap": {
     "inherit": [
-      "@hive/esm-shell-app"
+      "@havena/esm-shell-app"
     ],
     "imports": {
       "@hookform/resolvers/zod": "@hookform/resolvers/zod"

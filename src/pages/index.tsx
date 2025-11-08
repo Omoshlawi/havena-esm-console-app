@@ -1,7 +1,7 @@
 import {
   withNoOrganizationContextRequired,
   withRequireAuth,
-} from "@hive/esm-core-components";
+} from "@havena/esm-core-components";
 import AppServicesPage from "./AppServicesPage";
 import ResourcesPage from "./ResourcesPage";
 import Amenitiespage from "./Amenitiespage";
