@@ -40,7 +40,7 @@ const FileUsageScopePage = () => {
   const actions: ColumnDef<FileUsageScope> = {
     id: "actions",
     cell({ row }) {
-      const rule = row.original;
+      const scope = row.original;
       return (
         <Menu shadow="md" width={200} position="bottom-end">
           <Menu.Target>
@@ -58,15 +58,15 @@ const FileUsageScopePage = () => {
             <Menu.Divider />
             <Menu.Item
               leftSection={<TablerIcon name="edit" size={14} />}
-              onClick={() => handleAddOrupdate(rule)}
+              onClick={() => handleAddOrupdate(scope)}
             >
               Edit
             </Menu.Item>
             <Menu.Item
               leftSection={<TablerIcon name="trash" size={14} />}
               onClick={() =>
-                confirmDelete("category", async () => {
-                  await deleteFileUsageScope(rule.id, true);
+                confirmDelete("file usage scope", async () => {
+                  await deleteFileUsageScope(scope.id, true);
                   mutate();
                 })
               }

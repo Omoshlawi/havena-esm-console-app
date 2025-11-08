@@ -1,6 +1,5 @@
 import type { PiletApi } from "@havena/esm-shell-app";
 import * as React from "react";
-import {} from "zod/v4";
 import { AdminHeaderLink } from "./components/links";
 import {
   Amenities,
@@ -50,33 +49,30 @@ export function setup(app: PiletApi) {
     }
   );
 
-  app.registerPage("/dasboard/amenities", Amenities, { layout: "dashboard" });
-  app.registerPage("/dasboard/attribute-types", AttributeTypes, {
+  app.registerPage("/dashboard/amenities", Amenities, { layout: "dashboard" });
+  app.registerPage("/dashboard/attribute-types", AttributeTypes, {
     layout: "dashboard",
   });
-  app.registerPage("/dasboard/categories", Categories, {
+  app.registerPage("/dashboard/categories", Categories, {
     layout: "dashboard",
   });
-  app.registerPage("/dasboard/relationship-types", RelationShipTypes, {
+  app.registerPage("/dashboard/relationship-types", RelationShipTypes, {
     layout: "dashboard",
   });
-  app.registerPage("/dasboard/ownership-types", OwnershipTypes, {
+  app.registerPage("/dashboard/ownership-types", OwnershipTypes, {
     layout: "dashboard",
   });
-  app.registerPage("/dasboard/financing-options", FinancingOptions, {
+  app.registerPage("/dashboard/financing-options", FinancingOptions, {
     layout: "dashboard",
   });
-  app.registerPage("/dasboard/financing-options", FinancingOptions, {
-    layout: "dashboard",
-  });
-  app.registerPage("/dasboard/files/usage-rules", FileUsageRules, {
+  app.registerPage("/dashboard/files/usage-rules", FileUsageRules, {
     layout: "dashboard",
   });
 
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/amenities"
+        to="/dashboard/amenities"
         label="Amenities"
         icon="tournament"
         onClose={onClose ?? (() => {})}
@@ -87,7 +83,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/attribute-types"
+        to="/dashboard/attribute-types"
         label="Attribute Types"
         icon="tree"
         onClose={onClose ?? (() => {})}
@@ -98,7 +94,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/categories"
+        to="/dashboard/categories"
         label="Categories"
         icon="category"
         onClose={onClose ?? (() => {})}
@@ -109,7 +105,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/relationship-types"
+        to="/dashboard/relationship-types"
         label="Relationship types"
         icon="sitemap"
         onClose={onClose ?? (() => {})}
@@ -120,7 +116,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/ownership-types"
+        to="/dashboard/ownership-types"
         label="Ownership types"
         icon="userHexagon"
         onClose={onClose ?? (() => {})}
@@ -131,7 +127,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/financing-options"
+        to="/dashboard/financing-options"
         label="Financing options"
         icon="tax"
         onClose={onClose ?? (() => {})}
@@ -142,7 +138,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <AdminHeaderLink
-        to="/dasboard/files/usage-rules"
+        to="/dashboard/files/usage-rules"
         label="File usage rules"
         icon="swipe"
         onClose={onClose ?? (() => {})}

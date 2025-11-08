@@ -37,8 +37,8 @@ const FileusageScopeForm: FC<Props> = ({
       onCloseWorkspace?.();
       mutate();
       showNotification({
-        title: "succes",
-        message: `File usage scope ${scope ? "updated" : "created"} succesfull`,
+        title: "success",
+        message: `File usage scope ${scope ? "updated" : "created"} successfully`,
         color: "teal",
       });
     } catch (error) {

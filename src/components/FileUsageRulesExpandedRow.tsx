@@ -37,7 +37,7 @@ const FileUsageRulesExpandedRow: FC<Props> = ({ scope }) => {
         rule={rule}
         onCloseWorkspace={() => dismiss()}
       />,
-      { title: scope ? "Update scope" : "Add scope" }
+      { title: rule ? "Update rule" : "Add rule" }
     );
   };
   const actions: ColumnDef<FileUsageRule> = {
@@ -68,7 +68,7 @@ const FileUsageRulesExpandedRow: FC<Props> = ({ scope }) => {
             <Menu.Item
               leftSection={<TablerIcon name="trash" size={14} />}
               onClick={() =>
-                confirmDelete("category", async () => {
+                confirmDelete("file usage rule", async () => {
                   await deleteFileUsageRule(rule.id, true);
                   mutate();
                 })
