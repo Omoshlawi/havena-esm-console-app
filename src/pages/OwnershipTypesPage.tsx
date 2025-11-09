@@ -25,9 +25,7 @@ const OwnershipTypesPage: FC<OwnershipTypesPageProps> = ({}) => {
         onCloseWorkspace={() => dispose()}
       />,
       {
-        title: ownershipType
-          ? "Update Financing option"
-          : "Add Financing option",
+        title: ownershipType ? "Update Ownership type" : "Add Ownership type",
         width: "extra-wide",
         expandable: true,
       }
