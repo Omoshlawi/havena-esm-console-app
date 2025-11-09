@@ -1,9 +1,12 @@
 {
   "name": "@havena/esm-console-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Console/Admin app for Havena",
   "keywords": [
-    "pilet"
+    "pilet",
+    "havena",
+    "console",
+    "app"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -49,7 +52,6 @@
     "postinstall": "pilet declaration"
   },
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
