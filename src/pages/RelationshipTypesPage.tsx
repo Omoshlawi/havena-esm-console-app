@@ -16,7 +16,6 @@ import {
 } from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
-import { mutate } from "swr";
 import RelationshipTypeForm from "../forms/RelationshipTypeForm";
 import { useRelationshipTypeApi, useRelationshipTypes } from "../hooks";
 import { RelationshipType } from "../types";

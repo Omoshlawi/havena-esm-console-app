@@ -7,9 +7,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@havena/esm-shell-app": "../havena-esm-core/packages/esm-shell-app/dist/emulator/havena-esm-shell-app-1.0.3.tgz",
-    "@havena/esm-core-components": "../havena-esm-core/packages/esm-core-components/havena-esm-core-components-v1.0.3.tgz",
-    "@havena/esm-core-api": "../havena-esm-core/packages/esm-core-api/havena-esm-core-api-v1.0.3.tgz",
+    "@havena/esm-shell-app": "../havena-esm-core/packages/esm-shell-app/dist/emulator/havena-esm-shell-app-1.1.0.tgz",
+    "@havena/esm-core-components": "../havena-esm-core/packages/esm-core-components/havena-esm-core-components-v1.1.0.tgz",
+    "@havena/esm-core-api": "../havena-esm-core/packages/esm-core-api/havena-esm-core-api-v1.1.0.tgz",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/node": "^24.10.0",

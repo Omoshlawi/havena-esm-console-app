@@ -4,7 +4,6 @@ import { useOwnershipTypesApi } from "../hooks";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OwnershipTypeSchema } from "../utils/validation";
-import { mutate } from "swr";
 import { showNotification } from "@mantine/notifications";
 import { handleApiErrors } from "@havena/esm-core-api";
 import { Button, Group, Stack, Textarea, TextInput } from "@mantine/core";

@@ -8,7 +8,7 @@ import {
 import { ActionIcon, Badge, Box, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import OwnershipTypeForm from "../forms/OwnershipTypeForm";
 import { useOwnershipTypes } from "../hooks";
 import { OwnershipType } from "../types";
@@ -53,6 +53,53 @@ const OwnershipTypesPage: FC<OwnershipTypesPageProps> = ({}) => {
       },
     });
   };
+
+  const actionsColumn: ColumnDef<OwnershipType> = useMemo(
+    () => ({
+      id: "actions",
+      header: "Actions",
+      cell({ row }) {
+        const ownershiptype = row.original;
+        return (
+          <Group>
+            <Group>
+              <ActionIcon
+                variant="outline"
+                aria-label="Settings"
+                color="green"
+                onClick={() => handleAddOrupdate(ownershiptype)}
+              >
+                <TablerIcon
+                  name="edit"
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+              <ActionIcon
+                variant="outline"
+                aria-label="Settings"
+                color="red"
+                onClick={() => handleDelete(ownershiptype)}
+              >
+                <TablerIcon
+                  name="trash"
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            </Group>
+          </Group>
+        );
+      },
+    }),
+    [handleAddOrupdate, handleDelete]
+  );
+
+  const tableColumns = useMemo(
+    () => [...columns, actionsColumn],
+    [actionsColumn]
+  );
+
   return (
     <Stack gap={"xl"}>
       <Box>
@@ -64,46 +111,7 @@ const OwnershipTypesPage: FC<OwnershipTypesPageProps> = ({}) => {
       </Box>
       <StateFullDataTable
         onAdd={() => handleAddOrupdate()}
-        columns={[
-          ...columns,
-          {
-            id: "actions",
-            header: "Actions",
-            cell({ row }) {
-              const ownershiptype = row.original;
-              return (
-                <Group>
-                  <Group>
-                    <ActionIcon
-                      variant="outline"
-                      aria-label="Settings"
-                      color="green"
-                      onClick={() => handleAddOrupdate(ownershiptype)}
-                    >
-                      <TablerIcon
-                        name="edit"
-                        style={{ width: "70%", height: "70%" }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
-                    <ActionIcon
-                      variant="outline"
-                      aria-label="Settings"
-                      color="red"
-                      onClick={() => handleDelete(ownershiptype)}
-                    >
-                      <TablerIcon
-                        name="trash"
-                        style={{ width: "70%", height: "70%" }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
-                  </Group>
-                </Group>
-              );
-            },
-          },
-        ]}
+        columns={tableColumns}
         {...ownershipTypesAsync}
         withColumnViewOptions
       />

@@ -35,7 +35,8 @@ const ResourcesPage = () => {
       <Box>
         <DashboardPageHeader
           title={title}
-          subTitle="Manage and monitor your data resources"
+          subTitle="Manage and monitor your data resources.
+          "
           icon="shieldCheck"
         />
       </Box>
